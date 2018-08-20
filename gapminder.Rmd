@@ -1,6 +1,6 @@
 ---
 title: "Gapminder Exercise Template"
-author: "Mine Cetinkaya-Rundel"
+author: "Brian Cozzi"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -19,7 +19,8 @@ library(tidyverse)
 ## Load data
 
 ```{r}
-gap <- read_csv("https://bit.ly/gap_data")
+# gap <- read_csv("https://bit.ly/gap_data")
+gap <- read_csv("https://bit.ly/gap_data_upd") # Updated Dataset
 ```
 
 ## Exercises
@@ -28,8 +29,12 @@ gap <- read_csv("https://bit.ly/gap_data")
 
 How many observations are in this dataset?
 
-```{r nrow}
+```{r RowCount}
+row.count <- nrow(gap)
 ```
+There are `r row.count` rows in the dataset.
+
+
 
 ### Exercise 2
 
@@ -37,6 +42,13 @@ Visualize the relationship between GDP and life expectancy for
 countries in Europe in 1952 using a scatter plot.
 
 ```{r eu_52}
+# plot(gap$gdpPercap, gap$lifeExp, xlab = "GDP", ylab = )
+
+eu_52 <- gap %>%
+  filter(continent == "Europe", year == 1952)
+
+ggplot(data = eu_52, aes(x = gdpPercap, y = lifeExp)) + geom_point()
+
 ```
 
 ### Exercise 3
@@ -44,5 +56,9 @@ countries in Europe in 1952 using a scatter plot.
 Add year 1967 in another color.
 
 ```{r eu_52_67}
+eu_52_67 <- gap %>%
+  filter(continent == "Europe", year %in% c(1952, 1967))
+
+ggplot(data = eu_52_67, aes(x = gdpPercap, y = lifeExp)) + geom_point()
 ```
 
